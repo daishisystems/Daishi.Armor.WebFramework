@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Daishi.Armor</id>
+    <version>1.0.0.3</version>
+    <title>Daishi.Armor</title>
+    <authors>Paul Mooney</authors>
+    <owners>Paul Mooney</owners>
+    <projectUrl>https://github.com/daishisystems/Daishi.Armor</projectUrl>
+    <iconUrl>https://dl.dropboxusercontent.com/u/26042707/NugetLogo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Advanced Resilient Mode of Recognition</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>security csrf-protection cryptography encrypted-token-pattern owasp double-submit synchronizer-token</tags>
+    <dependencies>
+      <dependency id="Daishi.JsonParser" version="1.5" />
+      <dependency id="Newtonsoft.Json" version="5.0.6" />
+    </dependencies>
+  </metadata>
+</package>
