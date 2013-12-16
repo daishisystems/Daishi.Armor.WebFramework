@@ -18,7 +18,6 @@ namespace Daishi.Armor.WebFramework {
 
             claims.AddRange(new List<Claim> {
                 new Claim("UserId", principal.Identity.Name),
-                new Claim("Platform", "HMH")
             });
 
             return true;

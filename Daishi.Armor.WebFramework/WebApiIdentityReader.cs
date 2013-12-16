@@ -12,16 +12,17 @@ namespace Daishi.Armor.WebFramework {
         public WebApiIdentityReader(IPrincipal principal) : base(principal) {}
 
         public override bool TryRead(out IEnumerable<Claim> identity) {
-            identity = new List<Claim>();
+            var claims = new List<Claim>();
+            identity = claims;
 
             var claimsIdentity = principal.Identity as ClaimsIdentity;
             if (claimsIdentity == null) return false;
 
-            var subClaim = claimsIdentity.Claims.SingleOrDefault(c => c.Type.Equals("sub"));
+            var subClaim = claimsIdentity.Claims.SingleOrDefault(c => c.Type.Equals("UserId"));
             if (subClaim == null) return false;
 
-            var subClaimParser = new SubClaimParser(subClaim.Value);
-            return subClaimParser.TryParse(out identity);
+            claims.Add(subClaim);
+            return true;
         }
     }
 }
