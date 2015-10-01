@@ -10,11 +10,16 @@ using System.Security.Claims;
 
 namespace Daishi.Armor.WebFramework {
     public class ArmorAuthorize {
-        private readonly HttpRequestArmorHeaderParserFactory httpRequestArmorHeaderParserFactory;
+        private readonly HttpRequestArmorHeaderParserFactory
+            httpRequestArmorHeaderParserFactory;
         private readonly IdentityReaderFactory identityReaderFactory;
 
-        public ArmorAuthorize(HttpRequestArmorHeaderParserFactory httpRequestArmorHeaderParserFactory, IdentityReaderFactory identityReaderFactory) {
-            this.httpRequestArmorHeaderParserFactory = httpRequestArmorHeaderParserFactory;
+        public ArmorAuthorize(
+            HttpRequestArmorHeaderParserFactory
+                httpRequestArmorHeaderParserFactory,
+            IdentityReaderFactory identityReaderFactory) {
+            this.httpRequestArmorHeaderParserFactory =
+                httpRequestArmorHeaderParserFactory;
             this.identityReaderFactory = identityReaderFactory;
         }
 
@@ -37,21 +42,30 @@ namespace Daishi.Armor.WebFramework {
             var armorHeaderParser = httpRequestArmorHeaderParserFactory.Create();
             ArmorTokenHeader armorTokenHeader;
 
-            var hasArmorTokenHeader = armorHeaderParser.TryParse(out armorTokenHeader);
+            var hasArmorTokenHeader =
+                armorHeaderParser.TryParse(out armorTokenHeader);
             if (!hasArmorTokenHeader) return false;
 
             #endregion
 
             #region Validate ArmorToken
 
-            var encryptionKey = Convert.FromBase64String(ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
-            var hashingKey = Convert.FromBase64String(ConfigurationManager.AppSettings["ArmorHashKey"]);
-            var armorTimeOut = Convert.ToInt64(ConfigurationManager.AppSettings["ArmorTimeout"]);
+            var encryptionKey =
+                Convert.FromBase64String(
+                    ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
+            var hashingKey =
+                Convert.FromBase64String(
+                    ConfigurationManager.AppSettings["ArmorHashKey"]);
+            var armorTimeOut =
+                Convert.ToInt64(ConfigurationManager.AppSettings["ArmorTimeout"]);
 
-            var secureArmorTokenValidator = new SecureArmorTokenValidator(armorTokenHeader.ArmorToken, encryptionKey, hashingKey, userId, armorTimeOut);
+            var secureArmorTokenValidator =
+                new SecureArmorTokenValidator(armorTokenHeader.ArmorToken,
+                    encryptionKey, hashingKey, userId, armorTimeOut);
             secureArmorTokenValidator.Execute();
 
-            return secureArmorTokenValidator.ArmorTokenValidationStepResult.IsValid;
+            return
+                secureArmorTokenValidator.ArmorTokenValidationStepResult.IsValid;
 
             #endregion
         }
