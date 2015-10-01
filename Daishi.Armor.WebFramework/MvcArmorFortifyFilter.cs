@@ -1,7 +1,5 @@
 ﻿#region Includes
 
-using System;
-using System.Configuration;
 using System.Web.Mvc;
 
 #endregion
@@ -10,9 +8,7 @@ namespace Daishi.Armor.WebFramework {
     public class MvcArmorFortifyFilter : ActionFilterAttribute {
         public override void OnActionExecuted(
             ActionExecutedContext filterContext) {
-            var isArmed =
-                Convert.ToBoolean(ConfigurationManager.AppSettings["IsArmed"]);
-            if (!isArmed) return;
+            if (!ArmorSettings.IsArmed) return;
 
             var armorFortify =
                 new ArmorFortify(

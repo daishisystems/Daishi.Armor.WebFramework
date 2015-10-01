@@ -1,7 +1,5 @@
 ﻿#region Includes
 
-using System;
-using System.Configuration;
 using System.Net;
 using System.Threading;
 using System.Web;
@@ -14,9 +12,7 @@ namespace Daishi.Armor.WebFramework {
     public class WebApiArmorFortifyFilter : ActionFilterAttribute {
         public override void OnActionExecuted(
             HttpActionExecutedContext actionExecutedContext) {
-            var isArmed =
-                Convert.ToBoolean(ConfigurationManager.AppSettings["IsArmed"]);
-            if (!isArmed) return;
+            if (!ArmorSettings.IsArmed) return;
 
             var armorFortify =
                 new ArmorFortify(

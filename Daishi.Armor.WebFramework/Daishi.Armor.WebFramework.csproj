@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="ArmorAuthorize.cs" />
     <Compile Include="ArmorFortify.cs" />
+    <Compile Include="ArmorSettings.cs" />
     <Compile Include="ArmorTokenHeader.cs" />
     <Compile Include="GenerateSecureArmorToken.cs" />
     <Compile Include="HttpRequestArmorHeaderParser.cs" />

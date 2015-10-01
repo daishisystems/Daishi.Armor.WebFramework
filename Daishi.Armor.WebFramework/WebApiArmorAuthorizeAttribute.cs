@@ -1,7 +1,5 @@
 ﻿#region Includes
 
-using System;
-using System.Configuration;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -11,9 +9,7 @@ using System.Web.Http.Controllers;
 namespace Daishi.Armor.WebFramework {
     public class WebApiArmorAuthorizeAttribute : AuthorizeAttribute {
         protected override bool IsAuthorized(HttpActionContext actionContext) {
-            var isArmed =
-                Convert.ToBoolean(ConfigurationManager.AppSettings["IsArmed"]);
-            if (!isArmed) return true;
+            if (!ArmorSettings.IsArmed) return true;
 
             var armorAuthorize =
                 new ArmorAuthorize(

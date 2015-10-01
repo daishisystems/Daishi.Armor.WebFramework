@@ -1,8 +1,6 @@
 ﻿#region Includes
 
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 
@@ -50,14 +48,9 @@ namespace Daishi.Armor.WebFramework {
 
             #region Validate ArmorToken
 
-            var encryptionKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
-            var hashingKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorHashKey"]);
-            var armorTimeOut =
-                Convert.ToInt64(ConfigurationManager.AppSettings["ArmorTimeout"]);
+            var encryptionKey = ArmorSettings.EncryptionKey;
+            var hashingKey = ArmorSettings.HashingKey;
+            var armorTimeOut = ArmorSettings.Timeout;
 
             var secureArmorTokenValidator =
                 new SecureArmorTokenValidator(armorTokenHeader.ArmorToken,
