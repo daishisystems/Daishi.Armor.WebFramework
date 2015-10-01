@@ -19,11 +19,13 @@ namespace Daishi.Armor.WebFramework {
             var authHeaders = headers.GetValues("Authorization");
             if (authHeaders == null) return false;
 
-            var armorHeader = authHeaders.SingleOrDefault(header => header.StartsWith("ARMOR"));
+            var armorHeader =
+                authHeaders.SingleOrDefault(header => header.StartsWith("ARMOR"));
             if (armorHeader == null) return false;
 
             armorTokenHeader.IsValid = true;
-            armorTokenHeader.ArmorToken = armorHeader.Replace("ARMOR ", string.Empty);
+            armorTokenHeader.ArmorToken = armorHeader.Replace("ARMOR ",
+                string.Empty);
 
             return true;
         }
