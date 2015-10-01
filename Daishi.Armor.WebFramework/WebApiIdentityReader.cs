@@ -18,9 +18,7 @@ namespace Daishi.Armor.WebFramework {
             var claimsIdentity = principal.Identity as ClaimsIdentity;
             if (claimsIdentity == null) return false;
 
-            var subClaim =
-                claimsIdentity.Claims.SingleOrDefault(
-                    c => c.Type.Equals("UserId"));
+            var subClaim = claimsIdentity.Claims.SingleOrDefault(c => c.Type.Equals("UserId"));
             if (subClaim == null) return false;
 
             claims.Add(subClaim);

@@ -14,8 +14,7 @@ namespace Daishi.Armor.WebFramework {
         private readonly IdentityReaderFactory identityReaderFactory;
         private readonly HttpContext httpContext;
 
-        public ArmorFortify(IdentityReaderFactory identityReaderFactory,
-            HttpContext httpContext) {
+        public ArmorFortify(IdentityReaderFactory identityReaderFactory, HttpContext httpContext) {
             this.identityReaderFactory = identityReaderFactory;
             this.httpContext = httpContext;
         }
@@ -32,31 +31,21 @@ namespace Daishi.Armor.WebFramework {
             var userId = claims.Single(c => c.Type.Equals("UserId")).Value;
             var platform = claims.Single(c => c.Type.Equals("Platform")).Value;
 
-            var encryptionKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
-            var hashingKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorHashKey"]);
+            var encryptionKey = Convert.FromBase64String(ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
+            var hashingKey = Convert.FromBase64String(ConfigurationManager.AppSettings["ArmorHashKey"]);
 
             var nonceGenerator = new NonceGenerator();
             nonceGenerator.Execute();
 
-            var armorToken = new ArmorToken(userId, platform,
-                nonceGenerator.Nonce);
+            var armorToken = new ArmorToken(userId, platform, nonceGenerator.Nonce);
 
             var armorTokenConstructor = new ArmorTokenConstructor();
-            var standardSecureArmorTokenBuilder =
-                new StandardSecureArmorTokenBuilder(armorToken, encryptionKey,
-                    hashingKey);
-            var generateSecureArmorToken =
-                new GenerateSecureArmorToken(armorTokenConstructor,
-                    standardSecureArmorTokenBuilder);
+            var standardSecureArmorTokenBuilder = new StandardSecureArmorTokenBuilder(armorToken, encryptionKey, hashingKey);
+            var generateSecureArmorToken = new GenerateSecureArmorToken(armorTokenConstructor, standardSecureArmorTokenBuilder);
 
             generateSecureArmorToken.Execute();
 
-            httpContext.Response.AppendHeader("ARMOR",
-                generateSecureArmorToken.SecureArmorToken);
+            httpContext.Response.AppendHeader("ARMOR", generateSecureArmorToken.SecureArmorToken);
             return true;
         }
     }

@@ -9,14 +9,10 @@ namespace Daishi.Armor.WebFramework {
         private readonly ArmorTokenConstructor armorTokenConstructor;
         private readonly SecureArmorTokenBuilder secureArmorTokenBuilder;
 
-        public object Result {
-            get { return SecureArmorToken; }
-        }
+        public object Result { get { return SecureArmorToken; } }
         public string SecureArmorToken { get; private set; }
 
-        public GenerateSecureArmorToken(
-            ArmorTokenConstructor armorTokenConstructor,
-            SecureArmorTokenBuilder secureArmorTokenBuilder) {
+        public GenerateSecureArmorToken(ArmorTokenConstructor armorTokenConstructor, SecureArmorTokenBuilder secureArmorTokenBuilder) {
             this.armorTokenConstructor = armorTokenConstructor;
             this.secureArmorTokenBuilder = secureArmorTokenBuilder;
         }

@@ -8,16 +8,11 @@ using System.Web.Mvc;
 
 namespace Daishi.Armor.WebFramework {
     public class MvcArmorFortifyFilter : ActionFilterAttribute {
-        public override void OnActionExecuted(
-            ActionExecutedContext filterContext) {
-            var isArmed =
-                Convert.ToBoolean(ConfigurationManager.AppSettings["IsArmed"]);
+        public override void OnActionExecuted(ActionExecutedContext filterContext) {
+            var isArmed = Convert.ToBoolean(ConfigurationManager.AppSettings["IsArmed"]);
             if (!isArmed) return;
 
-            var armorFortify =
-                new ArmorFortify(
-                    new MvcIdentityReaderFactory(filterContext.HttpContext.User),
-                    filterContext.HttpContext.ApplicationInstance.Context);
+            var armorFortify = new ArmorFortify(new MvcIdentityReaderFactory(filterContext.HttpContext.User), filterContext.HttpContext.ApplicationInstance.Context);
             var isFortified = armorFortify.TryFortify();
 
             if (isFortified)

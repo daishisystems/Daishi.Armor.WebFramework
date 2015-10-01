@@ -5,12 +5,10 @@ using System.Collections.Specialized;
 #endregion
 
 namespace Daishi.Armor.WebFramework {
-    public class MvcHttpRequestArmorHeaderParserFactory :
-        HttpRequestArmorHeaderParserFactory {
+    public class MvcHttpRequestArmorHeaderParserFactory : HttpRequestArmorHeaderParserFactory {
         private readonly NameValueCollection headers;
 
-        public MvcHttpRequestArmorHeaderParserFactory(
-            NameValueCollection headers) {
+        public MvcHttpRequestArmorHeaderParserFactory(NameValueCollection headers) {
             this.headers = headers;
         }
 
