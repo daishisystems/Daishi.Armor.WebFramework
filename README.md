@@ -27,11 +27,11 @@ using (var provider = new RNGCryptoServiceProvider()) {
 }
 ```
 ### Adding Fortification Filters
-#### ASP.NET Web API
+Add the following filter to ASP.NET Web API applications
 ```cs
 config.Filters.Add(new WebApiArmorFortifyFilter());
 ```
-#### ASP.NET MVC
+Add the following filter to ASP.NET MVC applications
 ```cs
 public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
     filters.Add(new MvcArmorFortifyFilter());
