@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region Includes
+
+using System;
 using System.Configuration;
+
+#endregion
 
 namespace Daishi.Armor.WebFramework {
     // Since changes to the AppSettings will bounce the AppDomain, we can statically
@@ -7,7 +11,8 @@ namespace Daishi.Armor.WebFramework {
     public static class ArmorSettings {
         private static byte[] s_EncryptionKey;
         public static byte[] EncryptionKey {
-            get {
+            get
+            {
                 if (s_EncryptionKey == null) {
                     s_EncryptionKey = Convert.FromBase64String(
                         ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
@@ -19,10 +24,11 @@ namespace Daishi.Armor.WebFramework {
 
         private static byte[] s_HashingKey;
         public static byte[] HashingKey {
-            get {
+            get
+            {
                 if (s_HashingKey == null) {
                     s_HashingKey = Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorHashKey"]);
+                        ConfigurationManager.AppSettings["ArmorHashKey"]);
                 }
 
                 return s_HashingKey;
@@ -31,7 +37,8 @@ namespace Daishi.Armor.WebFramework {
 
         private static long? s_Timeout;
         public static long Timeout {
-            get {
+            get
+            {
                 if (!s_Timeout.HasValue) {
                     s_Timeout = Convert.ToInt64(
                         ConfigurationManager.AppSettings["ArmorTimeout"]);
@@ -43,7 +50,8 @@ namespace Daishi.Armor.WebFramework {
 
         private static bool? s_IsArmed;
         public static bool IsArmed {
-            get {
+            get
+            {
                 if (!s_IsArmed.HasValue) {
                     s_IsArmed = Convert.ToBoolean(
                         ConfigurationManager.AppSettings["IsArmed"]);
