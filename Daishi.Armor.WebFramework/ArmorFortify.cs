@@ -1,8 +1,6 @@
 ﻿#region Includes
 
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -32,12 +30,8 @@ namespace Daishi.Armor.WebFramework {
             var userId = claims.Single(c => c.Type.Equals("UserId")).Value;
             var platform = claims.Single(c => c.Type.Equals("Platform")).Value;
 
-            var encryptionKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorEncryptionKey"]);
-            var hashingKey =
-                Convert.FromBase64String(
-                    ConfigurationManager.AppSettings["ArmorHashKey"]);
+            var encryptionKey = ArmorSettings.EncryptionKey;
+            var hashingKey = ArmorSettings.HashingKey;
 
             var nonceGenerator = new NonceGenerator();
             nonceGenerator.Execute();
