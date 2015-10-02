@@ -28,7 +28,7 @@ namespace Daishi.Armor.WebFramework {
             var claims = identity.ToList();
 
             var userId = claims.Single(c => c.Type.Equals("UserId")).Value;
-            var platform = claims.Single(c => c.Type.Equals("Platform")).Value;
+            var platform = claims.SingleOrDefault(c => c.Type.Equals("Platform"));
 
             var encryptionKey = ArmorSettings.EncryptionKey;
             var hashingKey = ArmorSettings.HashingKey;
@@ -36,7 +36,8 @@ namespace Daishi.Armor.WebFramework {
             var nonceGenerator = new NonceGenerator();
             nonceGenerator.Execute();
 
-            var armorToken = new ArmorToken(userId, platform,
+            var armorToken = new ArmorToken(userId,
+                platform == null ? "ARMOR" : platform.Value,
                 nonceGenerator.Nonce);
 
             var armorTokenConstructor = new ArmorTokenConstructor();
