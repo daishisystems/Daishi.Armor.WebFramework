@@ -10,11 +10,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Daishi.Armor.WebFramework")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The Encrypted Token Pattern is a defence mechanism against Cross Site Request Forgery (CSRF) attacks, and is an alternative to its sister-patterns; Synchroniser Token, and Double Submit Cookie. The ARMOR Web Framework provides a means to leverage this technique in repelling CSRF attacks against ASP.NET applications.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HMH")]
-[assembly: AssemblyProduct("Daishi.Armor.WebFramework")]
-[assembly: AssemblyCopyright("Copyright © HMH 2013")]
+[assembly: AssemblyCompany("Paul Mooney")]
+[assembly: AssemblyProduct("ARMOR Web Framework")]
+[assembly: AssemblyCopyright("Copyright © Paul Mooney 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.3")]
-[assembly: AssemblyFileVersion("1.0.0.3")]
+[assembly: AssemblyVersion("1.0.0.4")]
+[assembly: AssemblyFileVersion("1.0.0.4")]

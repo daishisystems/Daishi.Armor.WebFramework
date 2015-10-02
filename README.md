@@ -2,7 +2,7 @@
 # ASP.NET ARMOR Web Framework
 [![Join the chat at https://gitter.im/daishisystems/Daishi.Armor.WebFramework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/daishisystems/Daishi.Armor.WebFramework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build status](https://ci.appveyor.com/api/projects/status/jne8objbtwxyaw7d?svg=true)](https://ci.appveyor.com/project/daishisystems/daishi-armor-webframework)
-[![NuGet](https://img.shields.io/badge/nuget-v1.0.0.3-blue.svg)](https://www.nuget.org/packages/Daishi.Armor.WebFramework)
+[![NuGet](https://img.shields.io/badge/nuget-v1.0.0.4-blue.svg)](https://www.nuget.org/packages/Daishi.Armor.WebFramework)
 
 As seen on <a href="https://visualstudiomagazine.com/articles/2015/05/01/csrf-attacks.aspx">visualstudiomagazine.com</a>.
 
@@ -14,7 +14,7 @@ Click <a href="http://insidethecpu.com/2015/04/10/protecting-asp-net-application
 ```PM> Install-Package Daishi.Armor.WebFramework```
 ## Sample Code
 ### Generating Keys
-ARMOR requires both encryption and hashing keys,  in Base64 format. You can generate both keys using the code below.
+ARMOR requires both encryption and hashing keys, in Base64 format. You can generate both keys using the code below.
 
 **Note**: Key-generation, rotation, and management are out-of-band topics in terms of leveraging ARMOR.
 ```cs
@@ -26,6 +26,44 @@ using (var provider = new RNGCryptoServiceProvider()) {
     provider.GetBytes(hashingKey);
 }
 ```
+### Adding Fortification Filters
+#### ASP.NET Web API
+```cs
+config.Filters.Add(new WebApiArmorFortifyFilter());
+```
+#### ASP.NET MVC
+```cs
+public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+    filters.Add(new MvcArmorFortifyFilter());
+}
+```
+### Protecting your Endpoints
+Add the following attribute to ASP.NET Web API endpoints
+```cs
+[WebApiArmorAuthorize]
+```
+Add the following attribute to ASP.NET MVC endpoints
+```cs
+[MvcArmorAuthorize]
+```
+### Integrating with your Authentication Mechanism
+Assuming that your application leverages Claims-based authentication, ARMOR will automatically read the UserID claim as follows:
+```cs
+public override bool TryRead(out IEnumerable<Claim> identity) {
+    var claims = new List<Claim>();
+    identity = claims;
+ 
+    var claimsIdentity = principal.Identity as ClaimsIdentity;
+    if (claimsIdentity == null) return false;
+ 
+    var subClaim = claimsIdentity.Claims.SingleOrDefault(c => c.Type.Equals(“UserId”));
+    if (subClaim == null) return false;
+ 
+    claims.Add(subClaim);
+    return true;
+}
+```
+If your application leverages any other form of authentication mechanism, simply create your own implementation of ```IdentityReader``` and override the ```TryRead``` method appropriately in order to return the logged-in **UserID** in Claim-based format.
 ## Contact the Developer
 Please reach out and contact me for questions, suggestions, or to just talk tech in general.
 
