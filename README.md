@@ -47,7 +47,7 @@ Add the following attribute to ASP.NET MVC endpoints
 [MvcArmorAuthorize]
 ```
 ### Integrating with your Authentication Mechanism
-Assuming that your application leverages Claims-based authentication, ARMOR will automatically read the UserID claim as follows:
+Assuming that your application leverages Claims-based authentication, ARMOR will automatically read the **UserID** claim as follows:
 ```cs
 public override bool TryRead(out IEnumerable<Claim> identity) {
     var claims = new List<Claim>();
